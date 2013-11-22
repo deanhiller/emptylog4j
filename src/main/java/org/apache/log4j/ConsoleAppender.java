@@ -47,7 +47,7 @@ public class ConsoleAppender implements Appender {
 	}
 
 	@Override
-	public Layout getLayout() {
+	public org.apache.log4j.spi.Layout getLayout() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -71,7 +71,7 @@ public class ConsoleAppender implements Appender {
 	}
 
 	@Override
-	public void setLayout(Layout arg0) {
+	public void setLayout(org.apache.log4j.spi.Layout arg0) {
 		// TODO Auto-generated method stub
 
 	}
