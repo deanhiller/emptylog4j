@@ -1,0 +1,7 @@
+/bin
+output/
+.classpath
+.project
+.settings
+.gradle
+.metadata

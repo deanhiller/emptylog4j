@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+//override the default directory of build as I like to use build and build.bat for building
+buildDir = file('output')
+project.ext.fixedLibDir = file('lib')
+project.ext.stagingDir = file('staging')
+project.ext.toStagingDir = file(new File(buildDir, project.name))
+project.ext.toStagingLibsDir = file(new File(toStagingDir, 'lib'))
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //compile group: 'joda-time:joda-time:2.1'
+    compile fileTree(dir: 'lib', include: '*.jar')
+}
+
+task syncJars(type: Sync) {
+    from(configurations.compile) {}
+    from(fixedLibDir) {}
+    into toStagingLibsDir
+}
+
+task copyMainJar(type: Copy) {
+    from(libsDir) {}
+    into toStagingLibsDir
+}
+
+task myZip(type: Tar) {
+    archiveName project.name+'.tar.gz'
+    from(buildDir) {
+        include project.name+'/**'
+    }
+}
+
+copyMainJar.dependsOn('syncJars')
+myZip.dependsOn('copyMainJar')
+assemble.dependsOn('myZip')
