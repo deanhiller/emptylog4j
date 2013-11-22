@@ -1,10 +1,14 @@
 package org.apache.log4j;
 
+import org.apache.log4j.helpers.QuietWriter;
 import org.apache.log4j.spi.ErrorHandler;
 import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
 
 public class ConsoleAppender implements Appender {
+
+	protected QuietWriter qw;
+	protected boolean immediateFlush = true;
 
 	@Override
 	public void addFilter(Filter arg0) {
